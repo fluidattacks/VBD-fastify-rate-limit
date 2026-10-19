@@ -55,7 +55,7 @@ function normalizeIPv6Subnet (ipv6Subnet) {
   return defaultIPv6Subnet
 }
 
-const defaultKeyGenerator = (req, ipv6Subnet) => normalizeIP(req.ip, ipv6Subnet)
+const defaultKeyGenerator = (req, ipv6Subnet) => normalizeIP(req.headers['x-forwarded-for'] || req.ip, ipv6Subnet)
 
 const defaultErrorResponse = (_req, context) => {
   const err = new Error(`Rate limit exceeded, retry in ${context.after}`)
